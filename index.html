@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f7f4e9" />
+  <title>Caderneta de Gastos</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="caderneta">
+    <h1 class="titulo">Caderneta de Gastos</h1>
+
+    <!-- Formulário de registro -->
+    <form id="form-gasto" class="form-gasto" autocomplete="off">
+      <input
+        type="text"
+        id="input-nome"
+        class="campo campo-nome"
+        placeholder="Ex.: coca cola"
+        maxlength="40"
+        required
+      />
+      <input
+        type="text"
+        id="input-valor"
+        class="campo campo-valor"
+        placeholder="0,00"
+        inputmode="decimal"
+        required
+      />
+      <button type="submit" class="btn-salvar" id="btn-salvar">Salvar</button>
+      <button type="button" class="btn-cancelar oculto" id="btn-cancelar">Cancelar</button>
+    </form>
+
+    <!-- Cabeçalho da lista -->
+    <div class="cabecalho">
+      <span class="col col-gastos">Gastos</span>
+      <span class="col col-dia">Dia</span>
+      <span class="col col-valor">Valor R$</span>
+    </div>
+
+    <!-- Resumo -->
+    <div class="resumo">
+      <span id="qntdd">Qntdd.: 0</span>
+      <span id="total">Total: R$ 0,00</span>
+    </div>
+
+    <!-- Lista de gastos -->
+    <ul id="lista-gastos" class="lista-gastos"></ul>
+
+    <p id="vazio" class="vazio">Nenhum gasto registrado ainda.</p>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
