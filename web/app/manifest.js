@@ -1,0 +1,35 @@
+// Manifest do PWA (gerado pelo Next em /manifest.webmanifest).
+export default function manifest() {
+  return {
+    name: "Caderneta de Gastos",
+    short_name: "Caderneta",
+    description:
+      "Organizador de gastos com visual de caderno. Registre despesas e acompanhe o total por mes.",
+    start_url: "/",
+    display: "standalone",
+    background_color: "#e7e3d5",
+    theme_color: "#f7f4e9",
+    lang: "pt-BR",
+    orientation: "portrait",
+    icons: [
+      {
+        src: "/icons/icon-192.png",
+        sizes: "192x192",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: "/icons/icon-512.png",
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: "/icons/icon-maskable-512.png",
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "maskable",
+      },
+    ],
+  };
+}
