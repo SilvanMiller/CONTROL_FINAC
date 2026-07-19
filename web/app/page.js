@@ -1,59 +1,31 @@
-import Link from "next/link";
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+import Caderneta from "@/components/Caderneta";
 
-// Pagina inicial (protegida pelo proxy quando o Supabase estiver configurado).
-// Por enquanto e a "casca" da caderneta; o CRUD sera ligado ao Supabase
-// no proximo passo (assim que houver URL + anon key).
-export default function Home() {
+// Pagina inicial (protegida). Busca o usuario e seus gastos no servidor e
+// entrega para o componente da caderneta cuidar do CRUD.
+export default async function Home() {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  const { data: gastos } = await supabase
+    .from("gastos")
+    .select("*")
+    .order("data", { ascending: false })
+    .order("created_at", { ascending: false });
+
   return (
-    <main style={{ display: "flex", justifyContent: "center", padding: 12 }}>
-      <div className="caderneta">
-        <h1 className="titulo">Caderneta de Gastos</h1>
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            fontWeight: "bold",
-            color: "var(--tinta)",
-            lineHeight: "var(--linha-altura)",
-            borderBottom: "2px solid var(--tinta)",
-          }}
-        >
-          <span>Gastos</span>
-          <span>Dia</span>
-          <span>Valor R$</span>
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            color: "#7a4a2b",
-            fontWeight: "bold",
-            lineHeight: "var(--linha-altura)",
-          }}
-        >
-          <span>Qntdd.: 0</span>
-          <span>Total: R$ 0,00</span>
-        </div>
-
-        <p
-          style={{
-            lineHeight: "var(--linha-altura)",
-            color: "#8a97a3",
-            fontStyle: "italic",
-          }}
-        >
-          Estrutura em Next.js pronta. Conecte o Supabase para registrar os
-          gastos na nuvem.
-        </p>
-
-        <p style={{ marginTop: 24 }}>
-          <Link href="/login" className="btn" style={{ textDecoration: "none" }}>
-            Ir para o login
-          </Link>
-        </p>
-      </div>
-    </main>
+    <Caderneta
+      initialGastos={gastos ?? []}
+      userId={user.id}
+      userEmail={user.email}
+    />
   );
 }

@@ -216,3 +216,204 @@ button {
   font-size: 0.9rem;
   text-align: center;
 }
+
+/* ===== Layout app (post-its + caderneta) ===== */
+.app-wrap {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 12px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.painel-meses {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+.postit {
+  width: 120px;
+  padding: 10px 12px;
+  background: #fdf6a9;
+  color: #4a4326;
+  border: none;
+  border-radius: 2px;
+  box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  text-align: left;
+  transform: rotate(-2deg);
+  transition: transform 0.1s ease;
+}
+
+.postit:nth-child(even) {
+  transform: rotate(1.5deg);
+  background: #c9f2c0;
+}
+
+.postit:hover {
+  transform: rotate(0deg) scale(1.03);
+}
+
+.postit.ativo {
+  outline: 2px solid var(--tinta);
+  transform: rotate(0deg) scale(1.03);
+}
+
+.postit-mes {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.postit-total {
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+/* ===== Barra do topo (usuario + sair) ===== */
+.topo {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.85rem;
+  color: var(--tinta);
+  margin-bottom: 4px;
+}
+
+.btn-sair {
+  font-size: 0.8rem;
+  padding: 4px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--tinta);
+  background: transparent;
+  color: var(--tinta);
+  cursor: pointer;
+}
+
+/* ===== Formulario de gasto ===== */
+.form-gasto {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.form-gasto .campo-nome {
+  flex: 1 1 150px;
+}
+
+.form-gasto .campo-valor {
+  flex: 0 1 100px;
+  text-align: right;
+}
+
+/* ===== Cabecalho e resumo ===== */
+.cabecalho {
+  display: grid;
+  grid-template-columns: 1fr 96px 92px;
+  gap: 8px;
+  font-weight: bold;
+  color: var(--tinta);
+  line-height: var(--linha-altura);
+  border-bottom: 2px solid var(--tinta);
+}
+
+.cabecalho .dir,
+.item-dia,
+.item-valor {
+  text-align: right;
+}
+
+.resumo {
+  display: flex;
+  justify-content: space-between;
+  color: #7a4a2b;
+  font-weight: bold;
+  line-height: var(--linha-altura);
+  border-bottom: 1px dashed var(--margem-vermelha);
+}
+
+/* ===== Lista de gastos ===== */
+.lista-gastos {
+  list-style: none;
+}
+
+.item-gasto {
+  display: grid;
+  grid-template-columns: 1fr 96px 92px auto;
+  gap: 8px;
+  align-items: center;
+  line-height: var(--linha-altura);
+  min-height: var(--linha-altura);
+  color: var(--tinta);
+}
+
+.item-nome {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-dia {
+  font-size: 0.85rem;
+  color: #5a6b7a;
+}
+
+.item-valor {
+  font-weight: bold;
+}
+
+.item-acoes {
+  display: flex;
+  gap: 4px;
+  justify-content: flex-end;
+}
+
+.btn-acao {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.05rem;
+  padding: 2px 4px;
+  border-radius: 4px;
+  line-height: 1;
+}
+
+.vazio {
+  color: #8a97a3;
+  font-style: italic;
+  line-height: var(--linha-altura);
+}
+
+/* ===== Responsivo (celular) ===== */
+@media (max-width: 640px) {
+  .app-wrap {
+    flex-direction: column;
+  }
+  .painel-meses {
+    flex-direction: row;
+    overflow-x: auto;
+    width: 100%;
+    padding-bottom: 6px;
+  }
+  .postit {
+    flex: 0 0 auto;
+    width: 110px;
+  }
+}
+
+@media (max-width: 420px) {
+  :root {
+    --margem-esq: 38px;
+  }
+  .cabecalho,
+  .item-gasto {
+    grid-template-columns: 1fr 78px 78px auto;
+    font-size: 0.9rem;
+  }
+}
