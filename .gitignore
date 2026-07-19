@@ -13,6 +13,7 @@ Desktop.ini
 # Configurações de editor / IDE
 .vscode/
 .idea/
+.claude/
 
 # Arquivos temporários
 *.tmp
