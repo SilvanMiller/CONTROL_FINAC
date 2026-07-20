@@ -3,7 +3,7 @@
 // Estrategia: cache-first para arquivos estaticos; network-first para
 // navegacoes (cai no cache se estiver offline). Requisicoes de outra
 // origem (ex.: Supabase) NAO sao interceptadas.
-const CACHE = "caderneta-v1";
+const CACHE = "caderneta-v2";
 const ESSENCIAIS = [
   "/manifest.webmanifest",
   "/icons/icon-192.png",
