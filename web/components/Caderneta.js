@@ -33,6 +33,14 @@ function rotuloMes(chave) {
   return `${MESES[Number(mes) - 1]}/${ano}`;
 }
 
+// Data de HOJE no fuso local do aparelho, no formato "AAAA-MM-DD".
+// (Evita o bug de o banco em UTC gravar o dia seguinte a noite no Brasil.)
+function hojeLocalISO() {
+  const agora = new Date();
+  const local = new Date(agora.getTime() - agora.getTimezoneOffset() * 60000);
+  return local.toISOString().slice(0, 10);
+}
+
 function mesMaisRecente(gastos) {
   let max = null;
   for (const g of gastos) {
@@ -117,9 +125,12 @@ export default function Caderneta({ initialGastos, userId, userEmail }) {
         if (error) throw error;
         setIdEditando(null);
       } else {
-        const { error } = await supabase
-          .from("gastos")
-          .insert({ nome: nomeLimpo, valor: valorNum, user_id: userId });
+        const { error } = await supabase.from("gastos").insert({
+          nome: nomeLimpo,
+          valor: valorNum,
+          user_id: userId,
+          data: hojeLocalISO(),
+        });
         if (error) throw error;
       }
       setNome("");
